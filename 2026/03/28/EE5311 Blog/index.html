@@ -19,15 +19,15 @@
   <meta name="author" content="Jack">
   <meta name="keywords" content="">
   
-    <meta name="description" content="description">
+    <meta name="description" content="📌 课程概述这里简要描述一下本篇笔记的核心内容。例如：本次笔记主要记录了关于 6轴工业机器人正逆运动学分析 以及在 MATLAB&#x2F;Julia 环境下的仿真实现。  🛠️ 核心理论1. 运动学建模 (Kinematics)利用 DH 参数表 (Denavit-Hartenberg parameters) 对机器人进行建模。 $$^iT_{i-1} &#x3D; \text{Rot}{z">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EE5311 Blog">
 <meta property="og:url" content="https://jackeysz.github.io/2026/03/28/EE5311%20Blog/index.html">
 <meta property="og:site_name" content="Jack&#39;s Blog">
-<meta property="og:description" content="description">
+<meta property="og:description" content="📌 课程概述这里简要描述一下本篇笔记的核心内容。例如：本次笔记主要记录了关于 6轴工业机器人正逆运动学分析 以及在 MATLAB&#x2F;Julia 环境下的仿真实现。  🛠️ 核心理论1. 运动学建模 (Kinematics)利用 DH 参数表 (Denavit-Hartenberg parameters) 对机器人进行建模。 $$^iT_{i-1} &#x3D; \text{Rot}{z">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-28T05:21:29.000Z">
-<meta property="article:modified_time" content="2026-03-28T05:23:31.230Z">
+<meta property="article:modified_time" content="2026-03-28T05:56:16.555Z">
 <meta property="article:author" content="Jack">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          193 字
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -297,7 +297,22 @@
             
               <div class="markdown-body">
                 
-                
+                <h2 id="📌-课程概述"><a href="#📌-课程概述" class="headerlink" title="📌 课程概述"></a>📌 课程概述</h2><p>这里简要描述一下本篇笔记的核心内容。例如：本次笔记主要记录了关于 <strong>6轴工业机器人正逆运动学分析</strong> 以及在 <strong>MATLAB&#x2F;Julia</strong> 环境下的仿真实现。</p>
+<hr>
+<h2 id="🛠️-核心理论"><a href="#🛠️-核心理论" class="headerlink" title="🛠️ 核心理论"></a>🛠️ 核心理论</h2><h3 id="1-运动学建模-Kinematics"><a href="#1-运动学建模-Kinematics" class="headerlink" title="1. 运动学建模 (Kinematics)"></a>1. 运动学建模 (Kinematics)</h3><p>利用 DH 参数表 (Denavit-Hartenberg parameters) 对机器人进行建模。</p>
+<p>$$<br>^iT_{i-1} &#x3D; \text{Rot}<em>{z, \theta_i} \text{Trans}</em>{z, d_i} \text{Trans}<em>{x, a_i} \text{Rot}</em>{x, \alpha_i}<br>$$</p>
+<blockquote>
+<p><strong>Note:</strong> 在处理奇异点（Singularity）时，需要特别注意雅可比矩阵的秩。</p>
+</blockquote>
+<h3 id="2-控制算法"><a href="#2-控制算法" class="headerlink" title="2. 控制算法"></a>2. 控制算法</h3><p>讨论 PID 或 状态空间控制在电机伺服系统中的应用。</p>
+<hr>
+<h2 id="💻-代码实现"><a href="#💻-代码实现" class="headerlink" title="💻 代码实现"></a>💻 代码实现</h2><p>以下是使用 <strong>Julia</strong> (或 C++) 编写的核心控制逻辑：</p>
+<pre><code class="julia">function solve_inverse_kinematics(target_pose)
+    # 你的核心算法逻辑
+    println(&quot;Calculating IK for: &quot;, target_pose)
+end
+</code></pre>
+
                 
               </div>
             
