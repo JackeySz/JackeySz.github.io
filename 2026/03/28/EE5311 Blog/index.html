@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=light>
+<html lang="en" data-default-color-scheme=light>
 
 
 
@@ -25,7 +25,7 @@
 <meta property="og:url" content="https://jackeysz.github.io/2026/03/28/EE5311%20Blog/index.html">
 <meta property="og:site_name" content="Jack&#39;s Blog">
 <meta property="og:description" content="Blog Overview Group members: Wang Zizheng   Ji Jiahao   Wang Enci   Chen Ziyi   Zhang Shuo This study documents a performance evaluation of neural networks in physical dynamics simulations, following">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/F1.png">
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/F2.png">
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/T1.png">
@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/F13.png">
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/F14.png">
 <meta property="article:published_time" content="2026-03-28T05:21:29.000Z">
-<meta property="article:modified_time" content="2026-04-07T15:08:36.764Z">
+<meta property="article:modified_time" content="2026-04-07T15:40:28.899Z">
 <meta property="article:author" content="Jack">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jackeysz.github.io/image/Blog/F1.png">
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
+                <span>Home</span>
               </a>
             </li>
           
@@ -159,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
+                <span>Archives</span>
               </a>
             </li>
           
@@ -171,7 +171,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
+                <span>Categories</span>
               </a>
             </li>
           
@@ -183,7 +183,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
+                <span>Tags</span>
               </a>
             </li>
           
@@ -195,7 +195,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
+                <span>About</span>
               </a>
             </li>
           
@@ -241,7 +241,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2026-03-28 13:21" pubdate>
-          2026年3月28日 下午
+          March 28, 2026 pm
         </time>
       </span>
     
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.2k words
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          10 分钟
+          10 mins
         
       </span>
     
@@ -273,7 +273,7 @@
       
         <span id="leancloud-page-views-container" class="post-meta" style="display: none">
           <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="leancloud-page-views"></span> 次
+          <span id="leancloud-page-views"></span> views
         </span>
         
       
@@ -318,6 +318,9 @@
 <p>Group members: <strong>Wang Zizheng</strong>   <strong>Ji Jiahao</strong>   <strong>Wang Enci</strong>   <strong>Chen Ziyi</strong>   <strong>Zhang Shuo</strong></p>
 <p>This study documents a performance evaluation of neural networks in physical dynamics simulations, following a trajectory from baseline tests on the <strong>Single Pendulum</strong> and <strong>Double Pendulum</strong> to the ultimate challenge of the complex <strong>Three-Body</strong> Problem.The core conclusion indicates that the reliability of physical simulations does not depend solely on model architecture. True physical fidelity is the result of a synergistic “iron triangle” composed of the model architecture (Hamiltonian Neural Networks or HNN), the numerical integrator (Symplectic Integrator), and data symmetry (Rotation Augmentation).</p>
 <hr>
+<h2 id="Introduction-The-Challenge-of-Long-Term-Fidelity">Introduction: The Challenge of Long-Term Fidelity</h2>
+<p>Numerical simulation of physical systems is a cornerstone of modern engineering, yet it remains a balancing act between computational cost and long-term stability. While traditional integrators are robust, the emergence of Physics-Informed Machine Learning offers a tantalizing possibility: learning complex dynamics directly from data.</p>
+<p>However, “black-box” neural networks like MLPs often fail spectacularly when deployed in autonomous rollouts, drifting away from physical reality as errors compound. This blog explores why standard deep learning fails and how we can achieve orders-of-magnitude improvements by enforcing physical laws not just in the loss function, but within the very “DNA” of the model and its environment.</p>
 <h2 id="1-The-Single-Pendulum-—-Where-the-Cracks-First-Appear">1. The Single Pendulum — Where the Cracks First Appear</h2>
 <p>The single pendulum is about as simple as conservative dynamics gets: a 2D phase space $(q, p)$, a known Hamiltonian: $H(q,p) = \frac{1}{2}p^2 - \cos q $, and closed orbits that should repeat forever. It is deliberately easy — and that’s precisely the point. If a model can’t preserve energy here, it has no business tackling anything harder.</p>
 <p>We train all three models — MLP, Soft-constrained baseline, and HNN on exactly the same task: given a canonical state $x=[q,p]$, predict the time derivative $x$. The labels are computed analytically (not via finite differences), so any error we see later belongs entirely to the learned model.</p>
@@ -339,6 +342,7 @@ The HNN’s final energy drift is about 20× smaller than either baseline. Not b
 <img src="/image/Blog/F3.png" srcset="/img/loading.gif" lazyload alt="Figure 3. HNN's learned Hamiltonian (center) vs. ground truth (left). The contour structure closely matches, with only small deviations near the phase-space boundary (right panel: aligned error)."><br>
 <img src="/image/Blog/F4.png" srcset="/img/loading.gif" lazyload alt="Figure 4. Soft model's learned energy (center) vs. ground truth (left). The aligned error (right) is significantly larger, confirming that soft supervision produces a less faithful global energy landscape."><br>
 The comparison is visually striking. The HNN’s learned scalar field closely reproduces the true $H = \frac{1}{2}p^2 - \cos q$ landscape, with errors concentrated at the periphery where training data is sparse.The Soft model’s energy surface $E_{pred}(q, p)$ is qualitatively reasonable but quantitatively much less faithful — and crucially, the dynamics $\dot{\mathbf{x}}_{pred}$ never actually follow this surface anyway</p>
+<p>Single pendulum was a sanity check, but to see where these models truly break, we must move to a chaotic regime: The Double Pendulum.</p>
 <h2 id="2-The-Double-Pendulum-—-Chaos-Amplifies-the-Gap">2. The Double Pendulum — Chaos Amplifies the Gap</h2>
 <p>If the single pendulum is a controlled sanity check, the double pendulum is the stress test. It has a 4D canonical state space $\mathbf{x} = [q_1, q_2, p_1, p_2]$, nonlinear coupling between the two links, and — most importantly — sensitivity to initial conditions that makes long-horizon prediction fundamentally harder.We follow exactly the same protocol. Trajectories are generated in generalized coordinates and losslessly mapped to canonical form. All models are trained on the same canonical $\mathbf{x} \mapsto \dot{\mathbf{x}}$ supervision with analytic labels. Rollouts use RK4 with a fixed step size.</p>
 <h3 id="2-1-Long-horizon-the-separation-becomes-dramatic">2.1. Long horizon: the separation becomes dramatic</h3>
@@ -405,13 +409,13 @@ The gravitational Hamiltonian is rotationally symmetric: rotating all positions 
 <p>The reason the combination helped so much is that the two changes were fixing different parts of the problem. Störmer-Verlet fixes the rollout: it prevents numerical error from compounding regardless of how good the learned Hamiltonian is. Rotation augmentation fixes the model: it improves $\mathcal{H}_\theta$ accuracy, which reduces both local prediction error and the leapfrog oscillation amplitude.Using only one of them still leaves a fairly obvious weakness in the system. Leapfrog on a poorly-learned $\mathcal{H}_\theta$ still oscillates with large amplitude—it is stable but inaccurate. Augmentation with Euler still drifts secularly. You need both to get the trajectory to stay both stable and close to the correct orbit.<br>
 <img src="/image/Blog/F13.png" srcset="/img/loading.gif" lazyload alt="Figure 13. Summary comparison: baseline HNN (Euler, no augmentation) vs. improved HNN (Störmer-Verlet + $SO(2)$) across both configurations and both timescales. Blue labels show improvement factors."></p>
 <blockquote>
-<p><strong>Note:</strong> Short-term gains are modest ($2\text{-}5\times$)—the baseline was already decent there. Long-term gains are $99.5\times$ on figure-8 and $161\times$ on Lagrange. The improvement compounds with simulation length.</p>
+<p><strong>Note:</strong> Short-term gains are modest ($2\text{-}5\times$)—the baseline was already decent there. Long-term gains are $99.5\times$ on Figure-8 and $161\times$ on Lagrange. The improvement compounds with simulation length.</p>
 </blockquote>
 <p>The numbers across configurations:</p>
 <div style="text-align: center; margin: 20px 0;">
-  Figure-8 long-term drift: $2.1 \times 10^{-1} \to 2.1 \times 10^{-3}$ ($\downarrow 99.5\times$) <br>
-  Lagrange long-term drift: $3.0 \times 10^{-1} \to 1.9 \times 10^{-3}$ ($\downarrow 161\times$) <br>
-  Worst single trajectory: $1.02$ (escape, Lagrange traj 2) $\to 2.83 \times 10^{-3}$ ($\downarrow 360\times$)
+  Figure-8 long-term drift: $2.1 \times 10^{-1} \to 2.1 \times 10^{-3}$ **($\downarrow 99.5\times$)** <br>
+  Lagrange long-term drift: $3.0 \times 10^{-1} \to 1.9 \times 10^{-3}$ **($\downarrow 161\times$)** <br>
+  Worst single trajectory: $1.02$ (escape, Lagrange traj 2) $\to 2.83 \times 10^{-3}$ **($\downarrow 360\times$)**
 </div>
 <p>The Lagrange trajectory 2 number is worth pausing on. The baseline HNN accumulates drift exceeding $100%$ of the initial energy on that trajectory—the orbit effectively escapes. The improved HNN holds it at $2.83 \times 10^{-3}$. At that point the improvement is not just numerical. One rollout remains usable, while the other has already failed physically.<br>
 <img src="/image/Blog/F14.png" srcset="/img/loading.gif" lazyload alt="Figure 14. Phase-space portraits — baseline HNN [red dashed, ESCAPED] vs. improved HNN [blue solid] on Figure-8. Grey line indicates ground truth."></p>
@@ -422,10 +426,15 @@ The gravitational Hamiltonian is rotationally symmetric: rotating all positions 
 <p>HNN fits this problem better because conservation is built into how the dynamics are represented, instead of being added later as a training preference. MLP and PINN treat energy as something to be encouraged during training. HNN treats it as a constraint on what the model can output. That difference shows up immediately in long-horizon rollout.</p>
 <p>But HNN alone is not enough. Pairing it with a non-symplectic integrator means the trajectory drifts regardless of how good the learned Hamiltonian is—the integrator undoes the work the architecture does. Switching to Störmer-Verlet fixes this by keeping the rollout geometrically consistent with Hamiltonian flow. The drift goes from monotonically growing to bounded and oscillatory.<br>
 Rotation augmentation helps in a different way. The gravitational Hamiltonian is rotationally symmetric, and the training data does not fully cover that symmetry. Augmentation gives the model the signal it needs to learn a rotationally consistent $\mathcal{H}_\theta$, which improves both short-term accuracy and the quality of the long-term rollout.</p>
-<p>Together, the two additions reduce long-term energy drift by $100\text{-}160\times$ relative to the baseline HNN, eliminate trajectory escapes, and produce physically correct orbit geometry over $11,\text{s}$. Without either one, you get a model that is better than MLP and PINN but still unreliable at the timescales that actually matter.</p>
+<p>Together, the two additions reduce long-term energy drift by $100\text{-}160\times$ relative to the baseline HNN, eliminate trajectory escapes, and produce physically correct orbit geometry over $11\text{s}$. Without either one, you get a model that is better than MLP and PINN but still unreliable at the timescales that actually matter.</p>
 <blockquote>
 <p><strong>Note:</strong> The broader point: for physical simulation, model architecture, numerical integrator, and training data coverage are not independent choices. They interact. Getting one right while ignoring the others leaves real performance on the table—and in this case, the difference is not 10% but orders of magnitude.</p>
 </blockquote>
+<h2 id="What-is-the-Conclusion">What is the Conclusion</h2>
+<p>The Synergy of the Iron TriangleOur journey from the simple pendulum to the chaotic three-body problem confirms that physical fidelity is not a single-point fix. The “Iron Triangle”—Hamiltonian constraints, symplectic integration, and symmetry-aware augmentation—creates a system where the whole is significantly greater than the sum of its parts.HNN provides the structural “railings” (Conservation).Störmer-Verlet ensures the rollout stays on those railings (Symplectic flow).Rotation Augmentation polishes the railings for global consistency (Symmetry).Future OutlookWhile this study focused on $SO(2)$ symmetries in 2D, the next frontier lies in extending these principles to $SO(3)$ 3D dynamics and multi-agent robotic systems. As we move toward AI-driven physical surrogates, the lesson is clear: Don’t just teach the network physics; make it impossible for the network to forget it.</p>
+<h2 id="Reference">Reference</h2>
+<h2 id="Conrribution">Conrribution</h2>
+<p>Wang Zizheng</p>
 
                 
               </div>
@@ -449,26 +458,26 @@ Rotation augmentation helps in a different way. The gravitational Hamiltonian is
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>Jack</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2026年3月28日</div>
+          <div>Posted on</div>
+          <div>March 28, 2026</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-cc-by"></i>
                   </span>
                 </a>
@@ -494,7 +503,7 @@ Rotation augmentation helps in a different way. The gravitational Hamiltonian is
                     
                       <a href="/2024/10/09/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title="测试文章">
                         <span class="hidden-mobile">测试文章</span>
-                        <span class="visible-mobile">下一篇</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -524,7 +533,7 @@ Rotation augmentation helps in a different way. The gravitational Hamiltonian is
     <div id="toc">
   <p class="toc-header">
     <i class="iconfont icon-list"></i>
-    <span>目录</span>
+    <span>Table of Contents</span>
   </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
@@ -586,7 +595,7 @@ Rotation augmentation helps in a different way. The gravitational Hamiltonian is
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -594,7 +603,7 @@ Rotation augmentation helps in a different way. The gravitational Hamiltonian is
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -622,16 +631,16 @@ Rotation augmentation helps in a different way. The gravitational Hamiltonian is
   
     
       <span id="leancloud-site-pv-container" style="display: none">
-        总访问量 
+        Views: 
         <span id="leancloud-site-pv"></span>
-         次
+        
       </span>
     
     
       <span id="leancloud-site-uv-container" style="display: none">
-        总访客数 
+        Visitors: 
         <span id="leancloud-site-uv"></span>
-         人
+        
       </span>
     
     
@@ -843,7 +852,7 @@ Rotation augmentation helps in a different way. The gravitational Hamiltonian is
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>
