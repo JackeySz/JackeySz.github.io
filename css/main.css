@@ -1688,6 +1688,10 @@ mjx-container svg:focus,
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.post-content p {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+}
 @-moz-keyframes post-prev-anim {
   0% {
     -webkit-transform: translateX(0);
