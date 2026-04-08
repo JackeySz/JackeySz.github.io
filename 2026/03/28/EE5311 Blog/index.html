@@ -19,12 +19,12 @@
   <meta name="author" content="Jack">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Blog Overview Group members: Wang Zizheng   Ji Jiahao   Wang Enci   Chen Ziyi   Zhang Shuo This study documents a performance evaluation of neural networks in physical dynamics simulations, following">
+    <meta name="description" content="Blog Overview Group members: Wang Zizheng    Ji Jiahao    Wang Enci    Chen Ziyi    Zhang Shuo This study documents a performance evaluation of neural networks in physical dynamics simulations, follow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EE5311 Blog">
 <meta property="og:url" content="https://jackeysz.github.io/2026/03/28/EE5311%20Blog/index.html">
 <meta property="og:site_name" content="Jack&#39;s Blog">
-<meta property="og:description" content="Blog Overview Group members: Wang Zizheng   Ji Jiahao   Wang Enci   Chen Ziyi   Zhang Shuo This study documents a performance evaluation of neural networks in physical dynamics simulations, following">
+<meta property="og:description" content="Blog Overview Group members: Wang Zizheng    Ji Jiahao    Wang Enci    Chen Ziyi    Zhang Shuo This study documents a performance evaluation of neural networks in physical dynamics simulations, follow">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/F1.png">
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/F2.png">
@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/F13.png">
 <meta property="og:image" content="https://jackeysz.github.io/image/Blog/F14.png">
 <meta property="article:published_time" content="2026-03-28T05:21:29.000Z">
-<meta property="article:modified_time" content="2026-04-07T15:48:25.963Z">
+<meta property="article:modified_time" content="2026-04-08T07:37:03.009Z">
 <meta property="article:author" content="Jack">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jackeysz.github.io/image/Blog/F1.png">
@@ -254,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k words
+          1.4k words
         
       </span>
     
@@ -265,7 +265,7 @@
         
         
         
-          10 mins
+          12 mins
         
       </span>
     
@@ -317,7 +317,7 @@
               <div class="markdown-body">
                 
                 <h2 id="Blog-Overview">Blog Overview</h2>
-<p>Group members: <strong>Wang Zizheng</strong>   <strong>Ji Jiahao</strong>   <strong>Wang Enci</strong>   <strong>Chen Ziyi</strong>   <strong>Zhang Shuo</strong></p>
+<p>Group members: <strong>Wang Zizheng</strong>    <strong>Ji Jiahao</strong>    <strong>Wang Enci</strong>    <strong>Chen Ziyi</strong>    <strong>Zhang Shuo</strong></p>
 <p>This study documents a performance evaluation of neural networks in physical dynamics simulations, following a trajectory from baseline tests on the <strong>Single Pendulum</strong> and <strong>Double Pendulum</strong> to the ultimate challenge of the complex <strong>Three-Body</strong> Problem.The core conclusion indicates that the reliability of physical simulations does not depend solely on model architecture. True physical fidelity is the result of a synergistic “iron triangle” composed of the model architecture (Hamiltonian Neural Networks or HNN), the numerical integrator (Symplectic Integrator), and data symmetry (Rotation Augmentation).</p>
 <hr>
 <h2 id="Introduction-The-Challenge-of-Long-Term-Fidelity">Introduction: The Challenge of Long-Term Fidelity</h2>
@@ -432,15 +432,26 @@ Rotation augmentation helps in a different way. The gravitational Hamiltonian is
 <blockquote>
 <p><strong>Note:</strong> The broader point: for physical simulation, model architecture, numerical integrator, and training data coverage are not independent choices. They interact. Getting one right while ignoring the others leaves real performance on the table—and in this case, the difference is not 10% but orders of magnitude.</p>
 </blockquote>
-<h2 id="What-is-the-Conclusion">What is the Conclusion</h2>
+<h2 id="4-What-is-the-Conclusion">4. What is the Conclusion</h2>
 <p>The Synergy of the Iron TriangleOur journey from the simple pendulum to the chaotic three-body problem confirms that physical fidelity is not a single-point fix. The “Iron Triangle”—Hamiltonian constraints, symplectic integration, and symmetry-aware augmentation—creates a system where the whole is significantly greater than the sum of its parts.HNN provides the structural “railings” (Conservation).Störmer-Verlet ensures the rollout stays on those railings (Symplectic flow).Rotation Augmentation polishes the railings for global consistency (Symmetry).Future OutlookWhile this study focused on $SO(2)$ symmetries in 2D, the next frontier lies in extending these principles to $SO(3)$ 3D dynamics and multi-agent robotic systems. As we move toward AI-driven physical surrogates, the lesson is clear: Don’t just teach the network physics; make it impossible for the network to forget it.</p>
-<h2 id="Reference">Reference</h2>
-<h2 id="Contribution">Contribution</h2>
-<p>Wang Zizheng:<br>
-Ji Jiahao:<br>
-Wang Enci:<br>
-Chen Ziyi:<br>
-Zhang Shuo: Blog front-end development, architecture design</p>
+<h2 id="5-Reference">5. Reference</h2>
+<p>[1] A. Chenciner and R. Montgomery, “A remarkable periodic solution of the three-body problem in the case of equal masses,” Annals of Mathematics, vol. 152, no. 3, pp. 881–901, 2000.<br>
+[2] M. Raissi, P. Perdikaris, and G. E. Karniadakis, “Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations,” Journal of Computational Physics, vol. 378, pp. 686–707, 2019.<br>
+[3] S. Greydanus, M. Dzamba, and J. Yosinski, “Hamiltonian Neural Networks,” in Advances in Neural Information Processing Systems (NeurIPS), 2019.<br>
+[4] E. Hairer, C. Lubich, and G. Wanner, “Geometric numerical integration illustrated by the Störmer–Verlet method,” Acta Numerica, vol. 12, pp. 399–450, 2003.<br>
+[5] Y. D. Zhong, B. Dey, and A. Chakraborty, “Symplectic ODE-Net: Learning Hamiltonian Dynamics with Control,” in International Conference on Learning Representations (ICLR), 2020.<br>
+[6] T. S. Cohen and M. Welling, “Group Equivariant Convolutional Networks,” in Proceedings of the 33rd International Conference on Machine Learning (ICML), PMLR 48, pp. 2990–2999, 2016.<br>
+[7] M. David, “Symplectic learning for Hamiltonian neural networks,” Journal of Computational Physics, vol. 495, 112588, 2023.<br>
+[8] S. Moradi, N. O. Jaensson, R. Tóth, and M. Schoukens, “Physics-Informed Learning Using Hamiltonian Neural Networks with Output Error Noise Models,” IFAC-PapersOnLine, vol. 56, no. 2, pp. 4330–4335, 2023.<br>
+[9] E. Cardoso-Bihlo and A. Bihlo, “Exactly conservative physics-informed neural networks and deep operator networks for dynamical systems,” Neural Networks, vol. 181, 106826, 2025.<br>
+[10] C. Meng, S. Griesemer, D. Cao, S. Seo, and Y. Liu, “When physics meets machine learning: a survey of physics-informed machine learning,” Machine Learning for Computational Science and Engineering, 2025.<br>
+[11] Q. Hernández et al., “Port-metriplectic neural networks: thermodynamics-informed machine learning of complex physical systems,” Computational Mechanics, vol. 72, pp. 1279–1296, 2023.</p>
+<h2 id="6-Contribution">6. Contribution</h2>
+<p>Wang Zizheng   (A0319180H):<br>
+Ji Jiahao   (A0298413X):<br>
+Wang Enci   (A0330171W):<br>
+Chen Ziyi   (A0318779H):<br>
+Zhang Shuo  (A0318712H): Blog development, architecture design</p>
 
                 
               </div>
